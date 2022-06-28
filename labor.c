@@ -51,24 +51,31 @@ void add(Point **headOfList, double x, double y)
     printf("y-Koordinate: ");
     scanf("%lf", &y);
     append(headOfList, x, y); // Eingabekoordinaten speichern
-    printf("\nList:\n");       // Die Liste ausgegeben
+    printf("\nList:\n");      // Die Liste ausgegeben
     printList(*headOfList);
 }
 
 void delLast(Point **headOfList)
 {
-    if (headOfList) // Feststellen, ob die Liste leer ist
+    Point *chkPtr = *headOfList; // Aktueller Punktzeiger
+    if (*headOfList)             // Feststellen, ob die Liste leer ist
     {
-        printf("Loesche letztes Listenelement");
-        headOfList = headOfList->next; // Kopfzeiger aktualisieren
-        if (headOfList)                // Feststellen, ob die Liste leer ist
+        if (chkPtr->next == NULL) // Spezialfall: nur ein Punkt
         {
-            printList(headOfList); // Ja, um die Liste anzuzeigen
+            *headOfList = NULL; // Listenkopf löschen
         }
         else
         {
-            printf("Dies ist eine leere Liste!"); // Wenn nicht, wird angezeigt
+            while (chkPtr->next->next != NULL) // Durchlaufen der Liste
+            {
+                chkPtr = chkPtr->next; // Speichern des Zeigers auf den Punkt nach dem Offset
+            }
+            free(chkPtr->next);  // Speicher freigeben
+            chkPtr->next = NULL; // Löschen des letzten Punktes
         }
+        printf("\nLoesche letztes Listenelement\n");
+        printf("\nList:\n"); // Die Liste ausgegeben
+        printList(*headOfList);
     }
     else // Wenn er bereits leer ist, wird eine Aufforderung
     {

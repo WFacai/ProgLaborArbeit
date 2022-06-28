@@ -35,9 +35,8 @@ void Aufgabe2()
             delLast(&List2);
             break;
         case 3: // ende
-            ;
-            break;
-        default:
+            printf("\nAde.\n");
+            return;
             break;
         }
     }
@@ -96,9 +95,6 @@ int main()
         case 0:
             return 0;
             break;
-        default:
-            break;
         }
     }
-    return 0;
 }
